@@ -27,11 +27,11 @@ app.add_middleware(
 UPLOADS_DIR = Path(__file__).parent / "uploads"
 UPLOADS_DIR.mkdir(exist_ok=True)
 
-# 라우터 등록 (Phase 2에서 구현)
-# from routers import upload, expenses, summary
-# app.include_router(upload.router, prefix="/api")
-# app.include_router(expenses.router, prefix="/api")
-# app.include_router(summary.router, prefix="/api")
+from routers import expenses, summary, upload
+
+app.include_router(upload.router, prefix="/api")
+app.include_router(expenses.router, prefix="/api")
+app.include_router(summary.router, prefix="/api")
 
 
 @app.get("/", tags=["health"])
