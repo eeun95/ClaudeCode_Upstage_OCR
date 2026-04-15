@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c \"import json,sys,os;d=json.load(sys.stdin);f=d.get('tool_input',{}).get('file_path','') or d.get('tool_response',{}).get('filePath','');r=json.dumps({'hookSpecificOutput':{'hookEventName':'PostToolUse','additionalContext':'[PRD 업데이트 알림] '+os.path.basename(f)+' 파일이 변경되었습니다. PRD_영수증_지출관리앱.md의 관련 섹션(기술 스택, requirements.txt, API 설계 등)을 확인하고 반영해 주세요.'}});print(r) if 'backend/' in f and 'PRD_' not in os.path.basename(f) else None\" 2>/dev/null || true",
+            "timeout": 10,
+            "statusMessage": "PRD 업데이트 필요 여부 확인 중..."
+          }
+        ]
+      }
+    ]
+  }
+}
